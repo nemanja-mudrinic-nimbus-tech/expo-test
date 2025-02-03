@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "star-k",
+    "slug": "starKKosherInfo",
+    "version": "4.2.9",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/appstore.png",
+    "userInterfaceStyle": "light",
+    "scheme": "myapp",
+    "splash": {
+      "image": "./src/assets/images/splash.png",
+      "resizeMode": "cover"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.star.k",
+      "buildNumber": "350"
+    },
+    "android": {
+      "blockedPermissions": ["android.permission.RECORD_AUDIO", "android.permission.CAMERA"],
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/appstore.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.star_k",
+      "versionCode": 450
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "notification": {
+      "icon": "./src/assets/images/notification.png",
+      "color": "#2F718F"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0a137260-b9e6-40d0-beb2-a3a472b2c17a"
+      }
+    },
+    "owner": "nimbustech",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/4d62bb4e-7042-4aaf-92d5-cb2596ce50f2",
+      "fallbackToCacheTimeout": 0
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-notifications",
+        {
+          "icon": "./src/assets/images/notification.png",
+          "color": "#2F718F"
+        }
+      ],
+      "sentry-expo",
+      "expo-build-properties"
+    ]
+  }
+}

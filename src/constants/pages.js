@@ -1,0 +1,31 @@
+export const PAGES = {
+  // Home
+  home: 'Home',
+  homeStack: 'HomeStack',
+  subCategories: 'SubCategories',
+  categories: 'Categories',
+  itemList: 'ItemList',
+  singleItem: 'SingleItem',
+  articlesList: 'ArticlesList',
+  articlePage: 'ArticlePage',
+  applianceItemPage: 'ApplianceItemPage',
+  insectItemPage: 'InsectItemPage',
+  companyPage: 'CompanyItemPage',
+  pdfViewer: 'PDFViewer',
+  // Alerts
+  alertsStack: 'AlertsStack',
+  alerts: 'Alerts',
+  alertPage: 'AlertPage',
+  singleAlertPage: 'SingleAlertPage',
+  // More
+  moreStack: 'MoreStack',
+  more: 'More',
+  askRabbi: 'AskRabbi',
+  contact: 'Contact',
+  about: 'About',
+  // Passover
+  passover: 'Passover',
+  passoverPaidSection: 'PassoverPaidSection',
+  passoverPaidSectionList: 'PassoverPaidSectionList',
+  passoverItemPage: 'PassoverItemPage',
+};

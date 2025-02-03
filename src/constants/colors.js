@@ -1,0 +1,17 @@
+export const COLORS = {
+  main: '#2F718F',
+  mainLight: '#F3F9FD',
+  mainHalfOpacity: 'rgba(47, 113, 143, 0.5)',
+  orange: '#ce893f',
+  mainTextColor: '#222222',
+  secondaryTextColor: '#555555',
+  secondaryTextColorLight: '#999999',
+  labelColor: '#2F718F',
+  lightGray: '#E5E5E5',
+  green: '#4F8B2A',
+  error: '#CC0000',
+  gray: '#757575',
+  blueGray: '#DAE6EB',
+  purple: '#C9781E',
+  monochromatic: '#3C8FB6',
+};

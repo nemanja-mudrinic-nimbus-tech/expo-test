@@ -1,0 +1,26 @@
+{
+  "cli": {
+    "version": ">= 5.4.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium",
+        "image": "latest"
+      },
+      "releaseChannel": "development"
+    },
+    "production": {
+      "ios": {
+        "resourceClass": "m1-medium",
+        "image": "latest"
+      },
+      "releaseChannel": "production"
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

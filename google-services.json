@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "795947069409",
+    "project_id": "star-k-marbelztech",
+    "storage_bucket": "star-k-marbelztech.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795947069409:android:d63a715f4c8c443b52eca0",
+        "android_client_info": {
+          "package_name": "com.star_k"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795947069409-ubk1f7d4j95pb1q3s45hahudf8cr9fdi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsKWGN6nCKLxRKwH3RfS-U_PVzxV_MNoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795947069409-ubk1f7d4j95pb1q3s45hahudf8cr9fdi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
