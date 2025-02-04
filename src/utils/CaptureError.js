@@ -1,6 +1,6 @@
 import * as Sentry from 'sentry-expo';
 
-export const captureError = (error) => {
+export const captureError = (error, context = {}) => {
   console.error(error); // Always log to console
 
   if (process.env.EXPO_PUBLIC_NODE_ENV !== 'prod') {
@@ -28,11 +28,16 @@ export const captureMessage = (message) => {
   }
 };
 
-const safeCaptureException = (error) => {
+const safeCaptureException = (error, context = {}) => {
   if (typeof error === "string") {
     Sentry.captureMessage(error);
   } else if (error instanceof Error) {
-    Sentry.captureException(error);
+    Sentry.captureException(error, {
+      extra: {
+        message: error.message,
+        stack: error.stack,
+        ...context,
+      }});
   } else {
     console.error("Unexpected error format:", error);
   }

@@ -24,7 +24,7 @@ export default function ArticlePage({ route }) {
         setIsLoading(false);
       })
       .catch((e) => {
-        captureError(e);
+        captureError(e, { articlePage: true});
         setIsLoading(false);
       });
   }, []);

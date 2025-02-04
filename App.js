@@ -43,7 +43,10 @@ if (process.env.EXPO_PUBLIC_NODE_ENV === 'prod') {
   Sentry.init({
     dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
     enableInExpoDevelopment: true,
-    debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+    debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+    attachStacktrace: true, // Ensures full stack trace is sent
+  enableNative: true, // Ensures native errors are captured
+  tracesSampleRate: 1.0, // Captures all transactions (adjust for production)
   });
 }
 
@@ -66,51 +69,7 @@ Notifications.setNotificationHandler({
 });
 
 function AppBody() {
-  const navigationRef = useNavigationContainerRef();
-  const routeNameRef = useRef();
-  const setStackScreenState = useSetRecoilState(stackScreenStateAtom);
 
-  return (
-    <View style={styles.container}>
-      <CustomStatusBar backgroundColor={COLORS.main} barStyle="light-content" />
-      <NavigationContainer
-        ref={navigationRef}
-        theme={MyTheme}
-        onReady={() => {
-          routeNameRef.current = navigationRef.getCurrentRoute()?.name;
-        }}
-        onStateChange={async () => {
-          const previousRouteName = routeNameRef.current;
-          const currentRouteName = navigationRef.getCurrentRoute()?.name;
-
-          const trackScreenView = (currName) => {
-            setStackScreenState((prevState) => ({
-              ...prevState,
-              isSearchActive: { ...prevState.isSearchActive },
-              beforeTabButtonPressScreenName: currName,
-            }));
-          };
-
-          if (previousRouteName !== currentRouteName) {
-            // Save the current route name for later comparison
-            routeNameRef.current = currentRouteName;
-
-            trackScreenView(currentRouteName);
-          }
-        }}
-      >
-        <MainStack />
-      </NavigationContainer>
-    </View>
-  );
-}
-
-export default function App() {
-  const [fontsLoaded] = useFonts({
-    'Noto-Sans': require('./src/assets/fonts/NotoSans-Regular.ttf'),
-    'Noto-SansBold': require('./src/assets/fonts/NotoSans-Bold.ttf'),
-  });
-  // const [expoToken, setExpoToken] = useState();
   const [deviceId, setDeviceId] = useState();
 
   async function fetchData() {
@@ -158,10 +117,57 @@ export default function App() {
     }
   }
 
+  const navigationRef = useNavigationContainerRef();
+  const routeNameRef = useRef();
+  const setStackScreenState = useSetRecoilState(stackScreenStateAtom);
+
+  return (
+    <View style={styles.container}>
+      <CustomStatusBar backgroundColor={COLORS.main} barStyle="light-content" />
+      <NavigationContainer
+        ref={navigationRef}
+        theme={MyTheme}
+        onReady={() => {
+          routeNameRef.current = navigationRef.getCurrentRoute()?.name;
+        }}
+        onStateChange={async () => {
+          const previousRouteName = routeNameRef.current;
+          const currentRouteName = navigationRef.getCurrentRoute()?.name;
+
+          const trackScreenView = (currName) => {
+            setStackScreenState((prevState) => ({
+              ...prevState,
+              isSearchActive: { ...prevState.isSearchActive },
+              beforeTabButtonPressScreenName: currName,
+            }));
+          };
+
+          if (previousRouteName !== currentRouteName) {
+            // Save the current route name for later comparison
+            routeNameRef.current = currentRouteName;
+
+            trackScreenView(currentRouteName);
+          }
+        }}
+      >
+        <MainStack />
+      </NavigationContainer>
+    </View>
+  );
+}
+
+export default function App() {
+  const [fontsLoaded] = useFonts({
+    'Noto-Sans': require('./src/assets/fonts/NotoSans-Regular.ttf'),
+    'Noto-SansBold': require('./src/assets/fonts/NotoSans-Bold.ttf'),
+  });
+  // const [expoToken, setExpoToken] = useState();
+
   if (!fontsLoaded) {
     return null;
   }
   return (
+    <ErrorBoundary>
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
@@ -171,6 +177,7 @@ export default function App() {
         </SafeAreaProvider>
       </QueryClientProvider>
     </RecoilRoot>
+    </ErrorBoundary>
   );
 }
 

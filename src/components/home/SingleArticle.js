@@ -63,7 +63,7 @@ export default function SingleArticle({ filterSlug, isSearchResult, searchTerm, 
             })
           );
     } catch (error) {
-      captureError(error);
+      captureError(error, { article: true});
     }
   };
 

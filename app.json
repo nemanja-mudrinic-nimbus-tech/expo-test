@@ -11,21 +11,29 @@
       "image": "./src/assets/images/splash.png",
       "resizeMode": "cover"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.star.k",
-      "buildNumber": "350"
+      "buildNumber": "353",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
-      "blockedPermissions": ["android.permission.RECORD_AUDIO", "android.permission.CAMERA"],
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA"
+      ],
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/appstore.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.star_k",
-      "versionCode": 450
+      "versionCode": 452
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -43,10 +51,6 @@
     "owner": "nimbustech",
     "runtimeVersion": {
       "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/4d62bb4e-7042-4aaf-92d5-cb2596ce50f2",
-      "fallbackToCacheTimeout": 0
     },
     "plugins": [
       "expo-router",

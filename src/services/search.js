@@ -26,7 +26,7 @@ export async function storeSearchPhrase(searchTerm, clickedResults, rawData) {
     });
   } catch (error) {
     if (error) {
-      captureError(error);
+      captureError(error, { serach: searchTerm});
     }
   }
 }
