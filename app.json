@@ -11,29 +11,24 @@
       "image": "./src/assets/images/splash.png",
       "resizeMode": "cover"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.star.k",
-      "buildNumber": "353",
+      "buildNumber": "361",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "blockedPermissions": [
-        "android.permission.RECORD_AUDIO",
-        "android.permission.CAMERA"
-      ],
+      "blockedPermissions": ["android.permission.RECORD_AUDIO", "android.permission.CAMERA"],
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/appstore.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.star_k",
-      "versionCode": 452
+      "versionCode": 461
     },
     "web": {
       "favicon": "./assets/favicon.png",

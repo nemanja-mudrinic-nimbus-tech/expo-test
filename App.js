@@ -1,4 +1,4 @@
-import { StyleSheet, View, Platform, Alert } from 'react-native';
+import { StyleSheet, View, Platform, Alert, Text } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -8,6 +8,23 @@ import * as Notifications from 'expo-notifications';
 import * as Network from 'expo-network';
 import { getUUID } from './src/utils/getUUID';
 import { ApplicationContextProvider } from './src/shared/context/applicationContext';
+
+import { NativeModules } from 'react-native';
+
+// Intercept native function calls
+Object.keys(NativeModules).forEach((moduleName) => {
+  Object.keys(NativeModules[moduleName]).forEach((methodName) => {
+    const originalMethod = NativeModules[moduleName][methodName];
+
+    NativeModules[moduleName][methodName] = (...args) => {
+      console.log(`🛠️ Native Call -> Module: ${moduleName}, Method: ${methodName}, Args:`, args);
+      captureError(`🛠️ Native Call -> Module: ${moduleName}, Method: ${methodName}, Args:`, {
+        args,
+      });
+      return originalMethod.apply(NativeModules[moduleName], args);
+    };
+  });
+});
 
 // Navigation
 import {
@@ -30,7 +47,8 @@ import * as Sentry from 'sentry-expo';
 import { stackScreenStateAtom } from './src/atoms/stackScreenStateAtom';
 import { userUUIDKey } from './src/constants/asyncStorageKeys';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import ErrorBoundary from './src/ErrorBoundary';
+import { captureError } from './src/utils/CaptureError';
 const MyTheme = {
   ...DefaultTheme,
   colors: {
@@ -39,15 +57,33 @@ const MyTheme = {
   },
 };
 
+import { setJSExceptionHandler, setNativeExceptionHandler } from 'react-native-exception-handler';
+
+// Catch JS Errors
+setJSExceptionHandler((error, isFatal) => {
+  console.log('🚨 JS ERROR:', error);
+  captureError(error, { isFatal, error });
+}, true);
+
+// Catch Native Crashes
+setNativeExceptionHandler(
+  (errorString) => {
+    console.log('🚨 NATIVE CRASH:', errorString);
+    captureError('NATIVE CHRASH', { errorString });
+  },
+  true,
+  true
+);
+
 if (process.env.EXPO_PUBLIC_NODE_ENV === 'prod') {
-  Sentry.init({
-    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-    enableInExpoDevelopment: true,
-    debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
-    attachStacktrace: true, // Ensures full stack trace is sent
-  enableNative: true, // Ensures native errors are captured
-  tracesSampleRate: 1.0, // Captures all transactions (adjust for production)
-  });
+  // Sentry.init({
+  //   dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+  //   enableInExpoDevelopment: true,
+  //   debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  //   // attachStacktrace: true, // Ensures full stack trace is sent
+  //   // enableNative: true, // Ensures native errors are captured
+  //   tracesSampleRate: 1.0, // Captures all transactions (adjust for production)
+  // });
 }
 
 const queryClient = new QueryClient({
@@ -69,7 +105,6 @@ Notifications.setNotificationHandler({
 });
 
 function AppBody() {
-
   const [deviceId, setDeviceId] = useState();
 
   async function fetchData() {
@@ -123,6 +158,14 @@ function AppBody() {
 
   return (
     <View style={styles.container}>
+      {/* <Text>Nemanja</Text>
+
+      <Text>Nemanja</Text>
+      <Text>Nemanja</Text>
+      <Text>Nemanja</Text>
+      <Text>Nemanja</Text>
+      <Text>Nemanja</Text>
+      <Text>Nemanja</Text> */}
       <CustomStatusBar backgroundColor={COLORS.main} barStyle="light-content" />
       <NavigationContainer
         ref={navigationRef}
@@ -168,15 +211,15 @@ export default function App() {
   }
   return (
     <ErrorBoundary>
-    <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <SafeAreaProvider>
-          <ApplicationContextProvider>
-            <AppBody />
-          </ApplicationContextProvider>
-        </SafeAreaProvider>
-      </QueryClientProvider>
-    </RecoilRoot>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <SafeAreaProvider>
+            <ApplicationContextProvider>
+              <AppBody />
+            </ApplicationContextProvider>
+          </SafeAreaProvider>
+        </QueryClientProvider>
+      </RecoilRoot>
     </ErrorBoundary>
   );
 }

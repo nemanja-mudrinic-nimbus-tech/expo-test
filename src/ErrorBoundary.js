@@ -1,11 +1,12 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import * as Sentry from "sentry-expo";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import * as Sentry from 'sentry-expo';
+import { captureError } from './utils/CaptureError';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, errorMessage: "" };
+    this.state = { hasError: false, errorMessage: '' };
   }
 
   static getDerivedStateFromError(error) {
@@ -13,8 +14,8 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error("❌ Error caught in ErrorBoundary:", error, errorInfo);
-    Sentry.captureException(error, { extra: errorInfo });
+    console.error('❌ Error caught in ErrorBoundary:', error, errorInfo);
+    captureError(error, { extra: errorInfo });
   }
 
   render() {
@@ -33,20 +34,20 @@ class ErrorBoundary extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   errorText: {
     fontSize: 20,
-    fontWeight: "bold",
-    color: "red",
+    fontWeight: 'bold',
+    color: 'red',
   },
   details: {
     marginTop: 10,
     fontSize: 14,
-    color: "#555",
+    color: '#555',
   },
 });
 

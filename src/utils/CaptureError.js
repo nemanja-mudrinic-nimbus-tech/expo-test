@@ -8,9 +8,9 @@ export const captureError = (error, context = {}) => {
   }
 
   try {
-    safeCaptureException(error);
+    safeCaptureException(error, context);
   } catch (err) {
-    console.warn("Error capturing exception in Sentry:", err);
+    console.warn('Error capturing exception in Sentry:', err);
   }
 };
 
@@ -24,12 +24,12 @@ export const captureMessage = (message) => {
   try {
     safeCaptureException(message);
   } catch (err) {
-    console.warn("Error capturing message in Sentry:", err);
+    console.warn('Error capturing message in Sentry:', err);
   }
 };
 
 const safeCaptureException = (error, context = {}) => {
-  if (typeof error === "string") {
+  if (typeof error === 'string') {
     Sentry.captureMessage(error);
   } else if (error instanceof Error) {
     Sentry.captureException(error, {
@@ -37,8 +37,9 @@ const safeCaptureException = (error, context = {}) => {
         message: error.message,
         stack: error.stack,
         ...context,
-      }});
+      },
+    });
   } else {
-    console.error("Unexpected error format:", error);
+    console.error('Unexpected error format:', error);
   }
 };
