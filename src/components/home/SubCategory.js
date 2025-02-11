@@ -41,7 +41,7 @@ export default function SubCategory({ filterSlug, isSearchResult = false, search
               <RenderHTML
                 contentWidth={contentWidth}
                 source={{ html: htmlTag }}
-                defaultTextProps={{ selectable: true }}
+                defaultTextProps={{ selectable: true, style: {color: COLORS.main}}}
               />
             )}
           </View>

@@ -87,7 +87,9 @@ export default function SingleAlert({ title, date, desc, id, read }) {
       <View style={styles.header}>
         <View style={styles.headerTitle}>
           {!localRead && <AlertSVG />}
-          <RenderHTML contentWidth={contentWidth} source={htmlTitle} />
+          <RenderHTML contentWidth={contentWidth} source={htmlTitle} tagsStyles={{
+    h3: { fontWeight: 'bold'}
+  }}  />
         </View>
 
         {date && (

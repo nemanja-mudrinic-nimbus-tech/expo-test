@@ -73,14 +73,14 @@ export default function SingleArticle({ filterSlug, isSearchResult, searchTerm, 
       <Pressable onPress={handleItemPress}>
         <View style={styles.flex}>
           <View style={styles.title}>
-            <RenderHTML contentWidth={contentWidth} source={htmlTitle} />
+            <RenderHTML contentWidth={contentWidth} source={htmlTitle} defaultTextProps={{style:{ fontWeight: 'bold', fontSize: 18}}}  />
           </View>
 
           {item.html_tag ? (
             <RenderHTML
               contentWidth={contentWidth}
               source={{ html: item.html_tag }}
-              defaultTextProps={{ selectable: true }}
+              defaultTextProps={{ selectable: true , style: {fontWeight: '700', color: COLORS.labelColor }}}
             />
           ) : item.wp_icon ? (
             <Image source={{ uri: item.wp_icon }} style={{ width: 40, height: 40 }} />
