@@ -13,7 +13,7 @@ const About = () => {
   const environment = process.env.EXPO_PUBLIC_NODE_ENV;
 
   // Specify the release date and time in CET
-  const releaseDateCET = '2025-02-03T17:15:08+01:00';
+  const releaseDateCET = '2025-02-13T17:13:08+01:00';
   const dateObject = new Date(releaseDateCET);
 
   const formattedDate = dateObject.toLocaleDateString(undefined, {
@@ -54,7 +54,7 @@ const About = () => {
       <View style={styles.infoBox}>
         <Text style={{ fontWeight: 700, marginBottom: 2 }}>Build Number</Text>
 
-        <Text>{Platform.OS === 'ios' ? 335 : 441}</Text>
+        <Text>{Platform.OS === 'ios' ? 364 : 464}</Text>
       </View>
       <View style={styles.infoBox}>
         <Text style={{ fontWeight: 700, marginBottom: 2 }}>Release Date</Text>

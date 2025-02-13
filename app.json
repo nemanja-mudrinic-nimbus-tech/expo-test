@@ -15,7 +15,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.star.k",
-      "buildNumber": "362",
+      "buildNumber": "364",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -28,7 +28,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.star_k",
-      "versionCode": 462
+      "versionCode": 464
     },
     "web": {
       "favicon": "./assets/favicon.png",
