@@ -14,7 +14,9 @@ const CollapseContainer = ({ children, expanded }) => {
   };
 
   useEffect(() => {
-    animatedHeight.value = expanded ? withTiming(height) : withTiming(0);
+    if (height !== null) {
+      animatedHeight.value = expanded ? withTiming(height) : withTiming(0);
+    }
   }, [expanded, height, animatedHeight]);
 
   const collapseStyle = useAnimatedStyle(() => ({
